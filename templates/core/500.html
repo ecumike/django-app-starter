@@ -1,0 +1,22 @@
+{% extends "core/page_template.html" %}
+{% load static %}
+
+{% block browserTitle %}{{ block.super}} Error 500{% endblock %}
+
+{% block leadspace %} {% endblock  %}
+
+{% block content %}
+
+	<div class="flex-ns items-center justify-center custom-page overflow-hidden">	
+		
+		<div class="mt5 mw6 ml4 ml0-ns f4-ns">
+			<div>
+				<div class="f-headline">500</div>
+				<h1 class="mv0 f3 fw6">Uh oh! A 500 error just occurred.</h1>
+				<p class="lh-copy">Something is broken on this page and it can't be rendered. Don't worry though, we're on it! The admins have just been notified and will get it fixed ASAP.</p>
+			</div>
+		</div>
+		
+	</div>
+	
+{% endblock %}

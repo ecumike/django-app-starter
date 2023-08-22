@@ -1,0 +1,63 @@
+{% load static %}
+{% load common_templatetags %}
+{% getTemplateHelpers as templateHelpers %}
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<meta charset="UTF-8">
+		<link href="{% static 'favicon.ico' %}" rel="icon"/>
+		<meta name="owner" content="REPLACE Me">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="robots" content="index,follow">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="geo.country" content="zz">
+		<meta name="dcterms.date" content="2023-06-21">
+
+		<title>{% block browserTitle %}Myproject - {% endblock %}</title>
+
+		<link href="{% static 'bloodline-bundle.min.css' %}" rel="stylesheet">
+		<link href="{% static 'site-common.css' %}" rel="stylesheet">
+		
+		<script src="{% static 'bloodline-bundle.min.js' %}"></script>
+		
+		{% block extraFiles %} {% endblock %}
+		
+	</head>
+
+	<body class="helvetica bg-white">
+		<main role="main" aria-label="Main page content">
+			{# header #}
+			<div class="bg-white relative z-1">
+				<nav class="shadow-2 flex flex-wrap justify-between bg-white custom-header pl3 pr4">
+					<div class="flex flex-wrap items-baseline">
+						<div><a class="fw6 {{ templateHelpers.classes.headerItem }}" href="{% url 'myapp:home' %}">Myproject</a></div>
+						<div class="flex flex-wrap custom-headerlinks">
+							{% if request.user.is_superuser %}
+								<a class="{{ templateHelpers.classes.headerItem }}" href="{% url 'admin:index' %}">Django admin</a>
+							{% endif %}
+						</div>
+					</div>
+				</nav>
+			</div>
+		
+			{% block leadspace %}
+				<div class="{{ templateHelpers.classes.grid }} pv4 bg-black">
+					<h1 class="near-white lh-title f3 fw6 mv0 pv0 mw7">{% block pageTitle %}Missing page title{% endblock %}</h1>
+					{% block pageSubtitle %}{% endblock %}
+				</div>
+			{% endblock %}
+			
+			<div style="min-height:calc(100vh - 255px);">
+				{% block content %} {% endblock %}
+			</div>
+
+		</main>
+		
+		<!-- <footer>
+			<div class="ph3 {% block footerClasses %}bg-near-white{% endblock %} flex flex-wrap items-center">
+				<a href="###" class="{{ templateHelpers.classes.footerItem }}">Footer item 1</a>
+			</div>
+		</footer> -->
+	</body>
+</html>

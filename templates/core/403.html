@@ -1,0 +1,22 @@
+{% extends "core/page_template.html" %}
+{% load static %}
+
+{% block browserTitle %}{{ block.super}} Error 403{% endblock %}
+
+{% block leadspace %} {% endblock  %}
+
+{% block content %}
+
+	<div class="flex-ns items-center justify-center custom-page overflow-hidden">	
+		
+		<div class="mt5 mw6 ml4 ml0-ns f4-ns">
+			<div>
+				<div class="f-headline">403</div>
+				<h1 class="mv0 f3 fw6">Halt! You shall not pass.</h1>
+				<p class="lh-copy">It appears you do not have the proper credentials to access this page. If you feel you have reached this in error, contact the site owner.</p>
+			</div>
+		</div>
+		
+	</div>
+	
+{% endblock %}

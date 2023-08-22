@@ -1,0 +1,19 @@
+{% extends "core/page_template.html" %}
+{% load static %}
+
+{% block browserTitle %} {{ block.super}} Home {% endblock %}
+
+{% block pageTitle %} Home {% endblock %}
+
+{% block extraFiles %} 
+		
+{% endblock %}
+
+
+{% block content %}
+
+	<div class="{{ templateHelpers.classes.grid }}">
+		<div class="mv4">Success! It's up and running.</div>
+	</div>
+	
+{% endblock %}

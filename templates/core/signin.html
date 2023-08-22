@@ -1,0 +1,80 @@
+{% extends "core/page_template.html" %}
+{% load static %}
+{% load common_templatetags %}
+
+{% getTemplateHelpers as templateHelpers %}
+
+
+{% block browserTitle %}{{ block.super}} Sign in{% endblock %}
+
+{% block pageTitle %} Sign in {% endblock  %}
+{% block pageSubtitle %}<div class="mv2">The Alexandria suite of tools require authentication before use.</div>{% endblock %}
+{% block content %}
+
+	<div class="{{ templateHelpers.classes.grid }} mt4" style="">
+		{% if error %}
+			<div class="mb3 dark-red">{{ error|safe }}</div>
+		{% endif %}
+		
+		<div class="mw6">
+			
+			<style>
+				.custom-signin-form #custom-auth-btn-wait {
+					display: none;
+				}
+				.custom-signin-form.authenticating #custom-auth-btn-wait {
+					display: flex;
+				}
+				.custom-signin-form.authenticating #custom-auth-signin-btn {
+					display: none;
+				}
+				
+			</style>
+			
+			<script>
+				(function ($) {
+					jQuery(function () {
+						$(".custom-signin-form").on("submit", function () {
+							this.classList.add("authenticating");				
+						});
+					});
+				})(jQuery);  
+				
+			</script>
+			
+			<form class="custom-signin-form" action="{% url 'core:signin' %}" method="post">
+				<!-- CSRF -->
+				{% csrf_token %}
+				
+				{# If we should take them somewhere other than default page after signing in. #}
+				{% if request.GET.next %}
+					<input type='hidden' name='next' value='{{ request.GET.next }}'>
+				{% elif request.POST.next %}
+					<input type='hidden' name='next' value='{{ request.POST.next }}'>
+				{% endif %}
+				
+				<div class="mb4 mw5">
+					<strong class="mb2 db">ID</strong>
+					{{ form.username }}
+				</div>
+				
+				<div class="mb4 mw5">
+					<strong class="mb2 db">{{ form.password.label_tag }}</strong>
+					{{ form.password }}
+				</div>
+			
+				<div class="">
+					<button id="custom-auth-signin-btn" class="{{ templateHelpers.classes.button }} {{ templateHelpers.classes.bluePriButton }}" type="submit">Sign in</button>
+					<div id="custom-auth-btn-wait" class="flex items-center">
+						<button id="custom-btn-wait" class="{{ templateHelpers.classes.button }} {{ templateHelpers.classes.disabledButton }}" style="cursor: not-allowed" disabled>Sign in</button>
+						<div class="ml3 w2 h2 ba bw2 br-100 bl-spinner"></div><div id="custom-processing-msg" class="dib ml2 f6">Authenticating</div>
+					</div>
+				</div>
+			   
+			</form>
+			
+
+		</div>
+	</div>
+
+{% endblock %}
